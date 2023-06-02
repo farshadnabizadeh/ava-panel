@@ -1,7 +1,6 @@
 jQuery(document).ready(function () {
     route()
 })
-
 const route = () => {
     var origin = window.location.origin;
     var route = window.location.href;
@@ -12,15 +11,17 @@ const route = () => {
             render(origin, pathname, 'loginComponent.html')
             break
         case 'signup':
-            render(route, 'registerComponent.html')
+            render(origin, pathname, 'registerComponent.html')
             break
         default:
             console.log('Not Found')
             break;
     }
 }
-
-
 const render = (origin, pathname, componentName) => {
     $('#root').load(origin + pathname + '/Components/' + componentName)
 }
+
+
+
+
