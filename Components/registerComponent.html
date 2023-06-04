@@ -39,7 +39,7 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100">Create Account</button>
+                    <button id="createAccount" class="btn btn-primary w-100">Create Account</button>
                   </div>
                   <div id="signin-request" class="col-12">
                     <p id="signinRequest-textBox" class="small mb-0">Already have an account? <a>Log in</a></p>
@@ -56,7 +56,8 @@
   </div>
   <script>
     jQuery(document).ready(function () {
-        signinRequest() // calling function in processes.js
+        signinRequest() // calling function from processes.js
+        createAccount() // calling funtion from processes.js
         $('#main-signupComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
         $('#main-signupComponent').css('background-size','cover')
         $('#signupBox').css('opacity','.9')
