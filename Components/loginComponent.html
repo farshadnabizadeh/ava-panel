@@ -34,7 +34,7 @@
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
                                     <div id="signup-request" class="col-12">
-                                        <p class="small mb-0">Don't have account? <a>Create an account</a></p>
+                                        <p id="signupRequest-textBox" class="small mb-0">Don't have account? <a>Create an account</a></p>
                                     </div>
                                 </form>
 
@@ -47,12 +47,11 @@
     </div>
     <script>
         jQuery(document).ready(function() {
-            signupRequest();
+            signupRequest(); // Calling function in processes.js
             $('#main-loginComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
             $('#main-loginComponent').css('background-size','cover')
             $('#loginBox').css('opacity','.7')
-            console.log(getURL())
-             //console.log(styleProcess()); loginBox
+            $('#signupRequest-textBox').css('cursor','pointer')
         })
     </script>
 </main>
