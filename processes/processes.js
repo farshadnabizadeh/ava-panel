@@ -6,7 +6,7 @@ const route = () => {
     var route = window.location.href;
     var pathname = window.location.pathname;
     var component = (window.location.href.split('?route='))[1]
-    
+
     switch (component) {
         case 'signin':
             render(origin, pathname, 'loginComponent.html')
@@ -18,6 +18,16 @@ const route = () => {
             render(origin, pathname, 'loginComponent.html')
             break;
     }
+}
+const signupRequest  = () =>{
+    $("#signup-request").click(function() {
+        window.location.href = '?route=signup'
+    });
+}
+const getURL = () => {
+    var origin = window.location.origin;
+    var pathname = window.location.pathname;
+    return origin + pathname;
 }
 const render = (origin, pathname, componentName) => {
     $('#root').load(origin + pathname + '/Components/' + componentName)
