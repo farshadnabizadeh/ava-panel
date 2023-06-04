@@ -37,6 +37,20 @@ const getURL = () => {
 const render = (origin, pathname, componentName) => {
     $('#root').load(origin + pathname + '/Components/' + componentName)
 }
+const createAccount = () => {
+    $('#createAccount').click(function(){
+        $.post(getURL() + 'HTTPResponses/processes/public/api/user/createaccount',
+        {
+            username: $('#username').val(),
+            email: $('#email').val(),
+            password : $('#password').val(),
+            confirmpassword:$('#confirmpassword').val(),
+        },
+        function(response){
+            console.log(response);
+        });
+    })
+}
 
 
 

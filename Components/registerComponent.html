@@ -3,9 +3,9 @@
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       <div class="container">
         <div class="row justify-content-center">
-          <div id="signupBox" class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+          <div id="signupBox" class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
             <div class="card mb-3">
-              <div class="card-body">
+              <div id="cardBody" class="card-body">
                 <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                   <p class="text-center small">Enter your personal details to create account</p>
@@ -29,7 +29,11 @@
                     <input type="password" name="password" class="form-control" id="password" required>
                     <div class="invalid-feedback">Please enter your password!</div>
                   </div>
-
+                  <div class="col-12">
+                    <label for="confirmpassword" class="form-label">Confirm password</label>
+                    <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" required>
+                    <div class="invalid-feedback">Please Confirm your password!</div>
+                  </div>
                   <div class="col-12">
                     <div class="form-check">
                       <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
@@ -39,7 +43,7 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100">Create Account</button>
+                    <button id="createAccount" class="btn btn-primary w-100">Create Account</button>
                   </div>
                   <div id="signin-request" class="col-12">
                     <p id="signinRequest-textBox" class="small mb-0">Already have an account? <a>Log in</a></p>
@@ -56,10 +60,12 @@
   </div>
   <script>
     jQuery(document).ready(function () {
-        signinRequest() // calling function in processes.js
+        signinRequest() // calling function from processes.js
+        createAccount() // calling funtion from processes.js
         $('#main-signupComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
         $('#main-signupComponent').css('background-size','cover')
         $('#signupBox').css('opacity','.9')
+        $('#cardBody').css('padding','20px 40px')
         $('#signinRequest-textBox').css('cursor','pointer')
     })
   </script>
