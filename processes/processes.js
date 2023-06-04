@@ -44,9 +44,10 @@ const createAccount = () => {
             username: $('#username').val(),
             email: $('#email').val(),
             password : $('#password').val(),
+            confirmpassword:$('#confirmpassword').val(),
         },
-        function(data){
-            console.log("Data: " + data);
+        function(response){
+            console.log(response);
         });
     })
 }
