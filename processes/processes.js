@@ -19,9 +19,14 @@ const route = () => {
             break;
     }
 }
-const signupRequest  = () =>{
+const signupRequest  = () => {
     $("#signup-request").click(function() {
         window.location.href = '?route=signup'
+    });
+}
+const signinRequest = () => {
+    $("#signin-request").click(function () {
+        window.location.href = '?route=signin'
     });
 }
 const getURL = () => {
