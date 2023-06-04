@@ -10,9 +10,9 @@
                   <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                   <p class="text-center small">Enter your personal details to create account</p>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <div class="row g-3 needs-validation" novalidate>
                   <div class="col-12">
-                    <label for="yourName" class="form-label">Username</label>
+                    <label for="username" class="form-label">Username</label>
                     <input type="text" name="username" class="form-control" id="username" required>
                     <div class="invalid-feedback">Please, enter your username!</div>
                   </div>
@@ -39,12 +39,12 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                    <button class="btn btn-primary w-100">Create Account</button>
                   </div>
                   <div id="signin-request" class="col-12">
                     <p id="signinRequest-textBox" class="small mb-0">Already have an account? <a>Log in</a></p>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
         signinRequest() // calling function in processes.js
         $('#main-signupComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
         $('#main-signupComponent').css('background-size','cover')
-        $('#signupBox').css('opacity','.7')
+        $('#signupBox').css('opacity','.9')
         $('#signinRequest-textBox').css('cursor','pointer')
     })
   </script>
