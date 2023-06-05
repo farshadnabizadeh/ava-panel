@@ -17,7 +17,12 @@ class usersController extends Controller
             $nextprocess['username'] = false;
          }
          if(isset($request->email)){
-            $nextprocess['email'] = true;
+            if($this->emailValidation($request->email)){
+                $nextprocess['email'] = true;
+            }else{
+                array_push($errors,'email is invalid');
+                $nextprocess['email'] = false;
+            }
          }else{
             array_push($errors,'email is required');
             $nextprocess['email'] = false;
