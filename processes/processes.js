@@ -39,12 +39,14 @@ const render = (origin, pathname, componentName) => {
 }
 const createAccount = () => {
     $('#createAccount').click(function(){
+
         $.post(getURL() + 'HTTPResponses/processes/public/api/user/createaccount',
         {
             username: $('#username').val(),
             email: $('#email').val(),
             password : $('#password').val(),
             confirmpassword:$('#confirmpassword').val(),
+            acceptTerms:$('#acceptTerms').is(":checked") ? 'enabled' : 'disabled',
         },
         function(response){
             console.log(response);
