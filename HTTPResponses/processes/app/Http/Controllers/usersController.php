@@ -37,7 +37,7 @@ class usersController extends Controller
              if($this->passwordCheck($request->password)){
                 $nextprocess['password'] = true;
              }else{
-                array_push($errors,'Password must be 8 Charachter');
+                array_push($errors,'Password must be 8 Charachters');
                 $nextprocess['password'] = false;
              }
          }else{
@@ -45,7 +45,12 @@ class usersController extends Controller
             $nextprocess['password'] = false;
          }
          if(isset($request->confirmpassword)){
-            $nextprocess['confirmpassword'] = true;
+            if($request->confirmpassword==$request->password){
+                $nextprocess['confirmpassword'] = true;
+            }else{
+                array_push($errors,'Passwords are not Same');
+                $nextprocess['confirmpassword'] = false;
+            }
          }else{
             array_push($errors,'Confirm your Password');
             $nextprocess['confirmpassword'] = false;
