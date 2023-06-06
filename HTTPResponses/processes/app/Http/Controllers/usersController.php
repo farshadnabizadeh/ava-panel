@@ -15,50 +15,50 @@ class usersController extends Controller
             if($this->uniqueUsername($request->username)){
                 $nextprocess['username'] = true;
             }else{
-                array_push($errors,'username already exists');
+                $errors['username']='username already exists';
                 $nextprocess['username'] = false;
             }
          }else{
-            array_push($errors,'username is required');
+            $errors['username'] = 'username is required';
             $nextprocess['username'] = false;
          }
          if(isset($request->email)){
             if($this->emailValidation($request->email)){
                 $nextprocess['email'] = true;
             }else{
-                array_push($errors,'email is invalid');
+                $errors['email'] = 'email is invalid';
                 $nextprocess['email'] = false;
             }
          }else{
-            array_push($errors,'email is required');
+            $errors['email'] = 'email is required';
             $nextprocess['email'] = false;
          }
          if(isset($request->password)){
              if($this->passwordCheck($request->password)){
                 $nextprocess['password'] = true;
              }else{
-                array_push($errors,'Password must be 8 Charachters');
+                $errors['password'] = 'Password must be 8 Charachters';
                 $nextprocess['password'] = false;
              }
          }else{
-            array_push($errors,'password is required');
+            $errors['password'] = 'password is required';
             $nextprocess['password'] = false;
          }
          if(isset($request->confirmpassword)){
             if($request->confirmpassword==$request->password){
                 $nextprocess['confirmpassword'] = true;
             }else{
-                array_push($errors,'Passwords are not Same');
+                $errors['confirmpassword'] = 'Passwords are not Same';
                 $nextprocess['confirmpassword'] = false;
             }
          }else{
-            array_push($errors,'Confirm your Password');
+            $errors['confirmpassword'] = 'Confirm your Password';
             $nextprocess['confirmpassword'] = false;
          }
          if($request->acceptTerms=='enabled'){
             $nextprocess['acceptTerms'] = true;
          }else{
-            array_push($errors,'agreement is required');
+            $errors['acceptTerms'] = 'agreement is required';
             $nextprocess['acceptTerms'] = false;
          }
          return Response::json([
