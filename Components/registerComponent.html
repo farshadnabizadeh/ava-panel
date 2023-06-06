@@ -61,11 +61,13 @@
     jQuery(document).ready(function () {
         signinRequest() // calling function from processes.js
         createAccount() // calling funtion from processes.js
-        $('#main-signupComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
-        $('#main-signupComponent').css('background-size','cover')
-        $('#main-signupComponent').css('position','relative')
-        $('#signupBox').css('opacity','.8')
-        $('#cardBody').css('padding','20px 40px')
-        $('#signinRequest-textBox').css('cursor','pointer')
+        $('#main-signupComponent').css({
+            'background-image':'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')',
+            'background-size':'cover',
+            'position':'relative',
+        })
+        $('#signupBox').css({'opacity':'.8'})
+        $('#cardBody').css({'padding':'20px 40px'})
+        $('#signinRequest-textBox').css({'cursor':'pointer'})
     })
 </script>

@@ -6,7 +6,6 @@ const route = () => {
     var route = window.location.href;
     var pathname = window.location.pathname;
     var component = (window.location.href.split('?route='))[1]
-
     switch (component) {
         case 'signin':
             render(origin, pathname, 'loginComponent.html')
@@ -58,7 +57,3 @@ const createAccount = () => {
         });
     })
 }
-
-
-
-
