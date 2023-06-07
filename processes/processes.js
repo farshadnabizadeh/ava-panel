@@ -6,7 +6,6 @@ const route = () => {
     var route = window.location.href;
     var pathname = window.location.pathname;
     var component = (window.location.href.split('?route='))[1]
-
     switch (component) {
         case 'signin':
             render(origin, pathname, 'loginComponent.html')
@@ -39,21 +38,22 @@ const render = (origin, pathname, componentName) => {
 }
 const createAccount = () => {
     $('#createAccount').click(function(){
-
         $.post(getURL() + 'HTTPResponses/processes/public/api/user/createaccount',
         {
             username: $('#username').val(),
             email: $('#email').val(),
             password : $('#password').val(),
-            confirmpassword:$('#confirmpassword').val(),
-            acceptTerms:$('#acceptTerms').is(":checked") ? 'enabled' : 'disabled',
+            confirmpassword: $('#confirmpassword').val(),
+            acceptTerms: $('#acceptTerms').is(":checked") ? 'enabled' : 'disabled',
         },
         function(response){
-            console.log(response);
+            if(response.data.username){
+                $('#username').css('border','1px solid red')
+                $('#username').attr('title',response.data.username)
+            }else{
+               $('#username').removeAttr('title')
+               $('#username').css('border','')
+            }
         });
     })
 }
-
-
-
-
