@@ -171,7 +171,6 @@
                                 ${response.data}
                         </div>
                     `)
-              setTimeout(() => { $('#warrning').html(``) }, 5000)
             } else {
               $('#warrning').html(`
                         <div style="
@@ -185,11 +184,10 @@
                                 ${response.data}
                         </div>
                     `)
-              setTimeout(() => { $('#warrning').html(``) }, 5000)
             }
           })
       } else {
-        setTimeout(() => { $('#warrning').html(``) }, 5000)
+        setTimeout(() => { $('#warrning').html(``) })
       }
     })
     $('#email').keyup(function () {
