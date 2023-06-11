@@ -192,5 +192,47 @@
         setTimeout(() => { $('#warrning').html(``) }, 5000)
       }
     })
+    $('#email').keyup(function () {
+      if ($('#email').val() != '') {
+        $.post(getURL() + 'HTTPResponses/processes/public/api/user/setemail',
+          {
+            email: $('#email').val(),
+          },
+          function (response) {
+            console.log(response)
+            if (response.status) {
+              $('#warrning').html(`
+                        <div style="
+                            width:100%
+                            ;height:70%
+                            ;background-color:green
+                            ;color:#fff
+                            ;display:flex
+                            ;justify-content:center
+                            ;align-items: center">
+                                ${response.data}
+                        </div>
+                    `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
+            } else {
+              $('#warrning').html(`
+                        <div style="
+                            width:100%
+                            ;height:70%
+                            ;background-color:red
+                            ;color:#fff
+                            ;display:flex
+                            ;justify-content:center
+                            ;align-items: center">
+                                ${response.data}
+                        </div>
+                    `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
+            }
+          })
+      } else {
+        setTimeout(() => { $('#warrning').html(``) }, 5000)
+      }
+    })
   })
 </script>

@@ -53,6 +53,22 @@ class usersController extends Controller
             ]);
         }
     }
+    public function setEmail(Request $request)
+    {
+        if ($this->emailValidation($request->email)) {
+            session()->put('email', true);
+            return response()->json([
+                "status" => true,
+                "data" => 'Email Set Successfully',
+            ]);
+        } else {
+            session()->put('email', false);
+            return response()->json([
+                "status" => false,
+                "data" => 'Email is invalid',
+            ]);
+        }
+    }
     public function emailValidation($email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $email);
