@@ -23,3 +23,4 @@ Route::post('/user/createaccount',[usersController::class,'createAccount']);
 Route::post('/user/session',[usersController::class,'getUserSession']);
 Route::post('/user/email/session',[usersController::class,'getEmailSession']);
 Route::post('/user/password/session',[usersController::class,'getPasswordSession']);
+Route::post('/user/setusername',[usersController::class,'setUsername']);
