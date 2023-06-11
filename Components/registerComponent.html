@@ -86,7 +86,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
         function (response) {
           if (response) {
-            $('#email').attr('readonly', true);
+            $('#email').attr('readonly', false);
           } else {
             $('#warrning').html(`
                             <div style="
@@ -100,6 +100,7 @@
                                  Username is required
                             </div>
                        `)
+            $('#email').attr('readonly', true);
             setTimeout(() => { $('#warrning').html(``) }, 5000)
           }
         });
@@ -169,6 +170,7 @@
                                 ${response.data}
                         </div>
                     `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
             } else {
               $('#warrning').html(`
                         <div style="
@@ -182,11 +184,11 @@
                                 ${response.data}
                         </div>
                     `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
             }
-            setTimeout(() => { $('#warrning').html(``) }, 2000)
           })
       } else {
-        setTimeout(() => { $('#warrning').html(``) }, 2000)
+        setTimeout(() => { $('#warrning').html(``) }, 5000)
       }
     })
   })
