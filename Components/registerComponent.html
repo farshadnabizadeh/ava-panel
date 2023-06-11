@@ -36,7 +36,8 @@
                   </div>
                   <div class="col-12">
                     <div class="form-check">
-                      <input class="form-check-input" name="terms" type="checkbox" value="agreement" id="acceptTerms" required>
+                      <input class="form-check-input" name="terms" type="checkbox" value="agreement" id="acceptTerms"
+                        required>
                       <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and
                           conditions</a></label>
                       <div class="invalid-feedback">You must agree before submitting.</div>
@@ -59,35 +60,35 @@
   <div id="warrning"></div>
 </main>
 <script>
-    jQuery(document).ready(function () {
-        signinRequest() // calling function from processes.js
-        createAccount() // calling funtion from processes.js
-        $('#main-signupComponent').css({
-            'background-image':'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')',
-            'background-size':'cover',
-            'position':'relative',
-        })
-        $('#signupBox').css({'opacity':'.8'})
-        $('#cardBody').css({'padding':'20px 40px'})
-        $('#signinRequest-textBox').css({'cursor':'pointer'})
-        $('#email').attr('readonly', true);
-        $('#password').attr('readonly', true);
-        $('#confirmpassword').attr('readonly', true);
-        $( "#acceptTerms" ).prop( "checked", true );
-        $('#warrning').css({
-            'width':'100%',
-            'height':'50px',
-            'position':'absolute',
-            'z-index':'99999',
-            'top':'0',
-        });
-        $('#email').click(function(){
-            $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
-                function(response){
-                    if(response){
-                        console.log('welcome to system')
-                    }else{
-                       $('#warrning').html(`
+  jQuery(document).ready(function () {
+    signinRequest() // calling function from processes.js
+    createAccount() // calling funtion from processes.js
+    $('#main-signupComponent').css({
+      'background-image': 'url(' + getURL() + 'assets/img/loginPageBackground.jpg' + ')',
+      'background-size': 'cover',
+      'position': 'relative',
+    })
+    $('#signupBox').css({ 'opacity': '.8' })
+    $('#cardBody').css({ 'padding': '20px 40px' })
+    $('#signinRequest-textBox').css({ 'cursor': 'pointer' })
+    $('#email').attr('readonly', true);
+    $('#password').attr('readonly', true);
+    $('#confirmpassword').attr('readonly', true);
+    $("#acceptTerms").prop("checked", true);
+    $('#warrning').css({
+      'width': '100%',
+      'height': '50px',
+      'position': 'absolute',
+      'z-index': '99999',
+      'top': '0',
+    });
+    $('#email').click(function () {
+      $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
+        function (response) {
+          if (response) {
+            console.log('welcome to system')
+          } else {
+            $('#warrning').html(`
                             <div style="
                                  width:100%
                                  ;height:70%
@@ -99,17 +100,17 @@
                                  Username is required
                             </div>
                        `)
-                       setTimeout(()=>{$('#warrning').html(``)},5000)
-                    }
-            });
-        })
-        $('#password').click(function(){
-            $.post(getURL() + 'HTTPResponses/processes/public/api/user/email/session',
-                function(response){
-                    if(response){
-                        console.log('welcome to system')
-                    }else{
-                       $('#warrning').html(`
+            setTimeout(() => { $('#warrning').html(``) }, 5000)
+          }
+        });
+    })
+    $('#password').click(function () {
+      $.post(getURL() + 'HTTPResponses/processes/public/api/user/email/session',
+        function (response) {
+          if (response) {
+            console.log('welcome to system')
+          } else {
+            $('#warrning').html(`
                             <div style="
                                  width:100%
                                  ;height:70%
@@ -121,17 +122,17 @@
                                  Email is required
                             </div>
                        `)
-                        setTimeout(()=>{$('#warrning').html(``)},5000)
-                    }
-            });
-        })
-        $('#confirmpassword').click(function(){
-            $.post(getURL() + 'HTTPResponses/processes/public/api/user/password/session',
-                function(response){
-                    if(response){
-                        console.log('welcome to system')
-                    }else{
-                       $('#warrning').html(`
+            setTimeout(() => { $('#warrning').html(``) }, 5000)
+          }
+        });
+    })
+    $('#confirmpassword').click(function () {
+      $.post(getURL() + 'HTTPResponses/processes/public/api/user/password/session',
+        function (response) {
+          if (response) {
+            console.log('welcome to system')
+          } else {
+            $('#warrning').html(`
                             <div style="
                                  width:100%
                                  ;height:70%
@@ -143,9 +144,49 @@
                                  Password is required
                             </div>
                        `)
-                        setTimeout(()=>{$('#warrning').html(``)},5000)
-                    }
-            });
-        })
+            setTimeout(() => { $('#warrning').html(``) }, 5000)
+          }
+        });
     })
+    $('#username').keyup(function () {
+      if ($('#username').val() != '') {
+        $.post(getURL() + 'HTTPResponses/processes/public/api/user/setusername',
+          {
+            username: $('#username').val(),
+          },
+          function (response) {
+            console.log(response)
+            if (response.status) {
+              $('#warrning').html(`
+                        <div style="
+                            width:100%
+                            ;height:70%
+                            ;background-color:green
+                            ;color:#fff
+                            ;display:flex
+                            ;justify-content:center
+                            ;align-items: center">
+                                ${response.data}
+                        </div>
+                    `)
+            } else {
+              $('#warrning').html(`
+                        <div style="
+                            width:100%
+                            ;height:70%
+                            ;background-color:red
+                            ;color:#fff
+                            ;display:flex
+                            ;justify-content:center
+                            ;align-items: center">
+                                ${response.data}
+                        </div>
+                    `)
+            }
+          })
+      } else {
+        setTimeout(() => { $('#warrning').html(``) }, 2000)
+      }
+    })
+  })
 </script>

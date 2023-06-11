@@ -21,63 +21,27 @@ class usersController extends Controller
     {
         return session('password') ? true : false;
     }
-    public function createAccount(Request $request)
+    public function setUsername(Request $request)
     {
-        $errors = array();
-        $nextprocess = array();
-        if (isset($request->username)) {
-            if ($this->uniqueUsername($request->username)) {
-                $nextprocess['username'] = true;
+        if ($this->uniqueUsername($request->username)) {
+            if (strlen($request->username) <= 5) {
+                return response()->json([
+                    "status" => false,
+                    "data" => 'Username must be up to 5 characters long',
+                ]);
             } else {
-                $errors['username'] = 'username already exists';
-                $nextprocess['username'] = false;
+                session()->put('username', $request->username);
+                return response()->json([
+                    "status" => true,
+                    "data" => 'Username set successfully',
+                ]);
             }
         } else {
-            $errors['username'] = 'username is required';
-            $nextprocess['username'] = false;
+            return response()->json([
+                "status" => false,
+                "data" => 'this username is already in use',
+            ]);
         }
-        if (isset($request->email)) {
-            if ($this->emailValidation($request->email)) {
-                $nextprocess['email'] = true;
-            } else {
-                $errors['email'] = 'email is invalid';
-                $nextprocess['email'] = false;
-            }
-        } else {
-            $errors['email'] = 'email is required';
-            $nextprocess['email'] = false;
-        }
-        if (isset($request->password)) {
-            if ($this->passwordCheck($request->password)) {
-                $nextprocess['password'] = true;
-            } else {
-                $errors['password'] = 'Password must be 8 Charachters';
-                $nextprocess['password'] = false;
-            }
-        } else {
-            $errors['password'] = 'password is required';
-            $nextprocess['password'] = false;
-        }
-        if (isset($request->confirmpassword)) {
-            if ($request->confirmpassword == $request->password) {
-                $nextprocess['confirmpassword'] = true;
-            } else {
-                $errors['confirmpassword'] = 'Passwords are not Same';
-                $nextprocess['confirmpassword'] = false;
-            }
-        } else {
-            $errors['confirmpassword'] = 'Confirm your Password';
-            $nextprocess['confirmpassword'] = false;
-        }
-        if ($request->acceptTerms == 'enabled') {
-            $nextprocess['acceptTerms'] = true;
-        } else {
-            $errors['acceptTerms'] = 'agreement is required';
-            $nextprocess['acceptTerms'] = false;
-        }
-        return Response::json([
-            'data' => $errors,
-        ], 200);
     }
     public function emailValidation($email)
     {
