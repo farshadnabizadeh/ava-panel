@@ -86,7 +86,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
         function (response) {
           if (response) {
-            console.log('welcome to system')
+            $('#email').attr('readonly', false);
           } else {
             $('#warrning').html(`
                             <div style="
@@ -100,6 +100,8 @@
                                  Username is required
                             </div>
                        `)
+            $('#email').val('');
+            $('#email').attr('readonly', true);
             setTimeout(() => { $('#warrning').html(``) }, 5000)
           }
         });
@@ -155,7 +157,7 @@
             username: $('#username').val(),
           },
           function (response) {
-            console.log(response)
+
             if (response.status) {
               $('#warrning').html(`
                         <div style="
@@ -169,6 +171,7 @@
                                 ${response.data}
                         </div>
                     `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
             } else {
               $('#warrning').html(`
                         <div style="
@@ -182,10 +185,11 @@
                                 ${response.data}
                         </div>
                     `)
+              setTimeout(() => { $('#warrning').html(``) }, 5000)
             }
           })
       } else {
-        setTimeout(() => { $('#warrning').html(``) }, 2000)
+        setTimeout(() => { $('#warrning').html(``) }, 5000)
       }
     })
   })
