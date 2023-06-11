@@ -11,7 +11,7 @@ class usersController extends Controller
 {
     public function getUserSession()
     {
-        return session('username') ? true : false;
+        return session('username');
     }
     public function getEmailSession()
     {
@@ -25,18 +25,21 @@ class usersController extends Controller
     {
         if ($this->uniqueUsername($request->username)) {
             if (strlen($request->username) <= 5) {
+                session()->put('username', false);
                 return response()->json([
                     "status" => false,
                     "data" => 'Username must be up to 5 characters long',
                 ]);
+
             } else {
-                session()->put('username', $request->username);
+                session()->put('username', true);
                 return response()->json([
                     "status" => true,
                     "data" => 'Username set successfully',
                 ]);
             }
         } else {
+            session()->put('username', false);
             return response()->json([
                 "status" => false,
                 "data" => 'this username is already in use',

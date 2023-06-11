@@ -86,7 +86,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
         function (response) {
           if (response) {
-            console.log('welcome to system')
+            console.log(response)
           } else {
             $('#warrning').html(`
                             <div style="
@@ -155,7 +155,7 @@
             username: $('#username').val(),
           },
           function (response) {
-            console.log(response)
+
             if (response.status) {
               $('#warrning').html(`
                         <div style="
