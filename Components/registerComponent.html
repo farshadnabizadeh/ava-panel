@@ -86,7 +86,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/session',
         function (response) {
           if (response) {
-            console.log(response)
+            $('#email').attr('readonly', true);
           } else {
             $('#warrning').html(`
                             <div style="
@@ -183,6 +183,7 @@
                         </div>
                     `)
             }
+            setTimeout(() => { $('#warrning').html(``) }, 2000)
           })
       } else {
         setTimeout(() => { $('#warrning').html(``) }, 2000)
