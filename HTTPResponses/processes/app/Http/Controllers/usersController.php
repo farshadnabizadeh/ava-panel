@@ -31,7 +31,7 @@ class usersController extends Controller
                     "data" => 'Username must be up to 5 characters long',
                 ]);
             } else {
-                if ($this->specialCharacterCheck($request->username)) {
+                if ($this->specialCharacterCheck($request->username) && !str_contains($request->username, ' ')) {
                     session()->put('username', true);
                     return response()->json([
                         "status" => true,
