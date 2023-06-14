@@ -45,19 +45,23 @@ const createAccount = () => {
     $('#createAccount').click(function () {
         $.post(getURL() + 'HTTPResponses/processes/public/api/user/createaccount',
             {
-                username: $('#username').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-                confirmpassword: $('#confirmpassword').val(),
                 acceptTerms: $('#acceptTerms').is(":checked") ? 'enabled' : 'disabled',
             },
             function (response) {
-                if (response.data.username) {
-                    $('#username').css('border', '1px solid red')
-                    $('#username').attr('title', response.data.username)
+                if (response.status) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    })
                 } else {
-                    $('#username').removeAttr('title')
-                    $('#username').css('border', '')
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    })
                 }
             });
     })

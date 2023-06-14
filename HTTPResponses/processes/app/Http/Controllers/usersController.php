@@ -149,4 +149,17 @@ class usersController extends Controller
             return false;
         }
     }
+    public function createAccount(Request $request){
+        if($request-> acceptTerms=='enabled' && session('username') && session('password') && session('email')){
+            return response()->json([
+                "status"=>true,
+                "data"=>"Your Account Created Successfully",
+            ]);
+        }else{
+            return response()->json([
+                "status"=>false,
+                "data"=>"Oops .. ,Creating Account Failed",
+            ]);
+        }
+    }
 }
