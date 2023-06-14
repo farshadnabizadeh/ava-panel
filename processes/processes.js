@@ -21,7 +21,7 @@ const route = () => {
     }
 }
 const resetAllSessions = () => {
-    $.post(getURL() + 'HTTPResponses/processes/public/api/reset/session',function(response){})
+    $.post(getURL() + 'HTTPResponses/processes/public/api/reset/session', function (response) { })
 }
 const signupRequest = () => {
     $("#signup-request").click(function () {

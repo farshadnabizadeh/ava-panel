@@ -93,6 +93,20 @@ class usersController extends Controller
             }
         }
     }
+    public function setconfirmationpassword(Request $request)
+    {
+        if ($request->password == $request->confirmationpassword) {
+            return response()->json([
+                "status" => true,
+                "data" => "password confirmed Successfully",
+            ]);
+        } else {
+            return response()->json([
+                "status" => false,
+                "data" => "Passwords are Not Same",
+            ]);
+        }
+    }
     public function resetAllSession()
     {
         session()->put('username', false);
@@ -113,7 +127,7 @@ class usersController extends Controller
     }
     public function specialCharacterCheck($data)
     {
-        if (preg_match('/[\'^�$%&*()}{@#~?><>,|=.+�-]/', $data)) {
+        if (preg_match('/[\'^�$%&*()}{@#~?><>,|;=.+�-]/', $data)) {
             return false;
         } else {
             return true;
@@ -121,7 +135,7 @@ class usersController extends Controller
     }
     public function emailSpecialCharacterCheck($data)
     {
-        if (preg_match('/[\'^�$%&*()}{#~?><>,|=+�]/', $data)) {
+        if (preg_match('/[\'^�$%&*()}{#~?><>,|;=+�]/', $data)) {
             return false;
         } else {
             return true;
