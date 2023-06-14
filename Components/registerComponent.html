@@ -142,7 +142,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/password/session',
         function (response) {
           if (response) {
-            console.log('welcome to system')
+            $('#confirmpassword').attr('readonly', false);
           } else {
             $('#warrning').html(`
                             <div style="
@@ -153,9 +153,10 @@
                                  ;display:flex
                                  ;justify-content:center
                                  ;align-items: center">
-                                 Password is required
+                                 Password Is Required
                             </div>
                        `)
+            $('#confirmpassword').attr('readonly', true);
             setTimeout(() => { $('#warrning').html(``) }, 5000)
           }
         });

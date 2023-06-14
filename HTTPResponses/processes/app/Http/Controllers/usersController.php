@@ -19,7 +19,7 @@ class usersController extends Controller
     }
     public function getPasswordSession()
     {
-        return session('password') ? true : false;
+        return session('password') && session('email') && session('username');
     }
     public function setUsername(Request $request)
     {
