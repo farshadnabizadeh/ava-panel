@@ -118,7 +118,7 @@
       $.post(getURL() + 'HTTPResponses/processes/public/api/user/email/session',
         function (response) {
           if (response) {
-            console.log('welcome to system')
+            $('#password').attr('readonly', false);
           } else {
             $('#warrning').html(`
                             <div style="
@@ -132,6 +132,8 @@
                                  Email is required
                             </div>
                        `)
+            $('#password').attr('readonly', true);
+            $('#password').val('');
             setTimeout(() => { $('#warrning').html(``) }, 5000)
           }
         });

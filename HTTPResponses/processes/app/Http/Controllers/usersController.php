@@ -15,7 +15,7 @@ class usersController extends Controller
     }
     public function getEmailSession()
     {
-        return session('email') ? true : false;
+        return session('email') && session('username');
     }
     public function getPasswordSession()
     {
@@ -83,7 +83,7 @@ class usersController extends Controller
     }
     public function specialCharacterCheck($data)
     {
-        if (preg_match('/[\'^�$%&*()}{@#~?><>,|=_+�-]/', $data)) {
+        if (preg_match('/[\'^�$%&*()}{@#~?><>,|=.+�-]/', $data)) {
             return false;
         } else {
             return true;
@@ -91,7 +91,7 @@ class usersController extends Controller
     }
     public function emailSpecialCharacterCheck($data)
     {
-        if (preg_match('/[\'^�$%&*()}{#~?><>,|=_+�-]/', $data)) {
+        if (preg_match('/[\'^�$%&*()}{#~?><>,|=+�]/', $data)) {
             return false;
         } else {
             return true;
