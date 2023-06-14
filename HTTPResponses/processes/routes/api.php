@@ -19,9 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/reset/session',[usersController::class,'resetAllSession']);
 Route::post('/user/createaccount',[usersController::class,'createAccount']);
 Route::post('/user/session',[usersController::class,'getUserSession']);
 Route::post('/user/email/session',[usersController::class,'getEmailSession']);
 Route::post('/user/password/session',[usersController::class,'getPasswordSession']);
 Route::post('/user/setusername',[usersController::class,'setUsername']);
 Route::post('/user/setemail',[usersController::class,'setEmail']);
+Route::post('/user/setpassword',[usersController::class,'setPassword']);

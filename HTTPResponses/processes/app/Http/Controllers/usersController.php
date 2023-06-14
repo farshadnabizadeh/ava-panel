@@ -69,6 +69,19 @@ class usersController extends Controller
             ]);
         }
     }
+    public function setPassword(Request $request){
+        if(!$this->specialCharacterCheck($request->password)){
+            return response()->json([
+                "status"=>false,
+                "data"=>"special characters are not allowed",
+            ]);
+        }
+    }
+    public function resetAllSession(){
+        session()->put('username', false);
+        session()->put('email', false);
+        session()->put('password', false);
+    }
     public function emailValidation($email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $email);
