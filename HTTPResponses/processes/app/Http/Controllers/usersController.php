@@ -149,16 +149,31 @@ class usersController extends Controller
             return false;
         }
     }
-    public function createAccount(Request $request){
-        if($request-> acceptTerms=='enabled' && session('username') && session('password') && session('email')){
-            return response()->json([
-                "status"=>true,
-                "data"=>"Your Account Created Successfully",
+    public function createAccount(Request $request)
+    {
+        if ($request->acceptTerms == 'enabled' && session('username') && session('password') && session('email')) {
+            $createAccount = User::create([
+                'username' => session('username'),
+                'email' => session('email'),
+                'email_verified' => false,
+                'password' => session('password'),
+                'remember_token' => md5('password'),
             ]);
-        }else{
+            if ($createAccount) {
+                return response()->json([
+                    "status" => true,
+                    "data" => "Your Account Created Successfully",
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "data" => "Oops .. ,Creating Account Failed",
+                ]);
+            }
+        } else {
             return response()->json([
-                "status"=>false,
-                "data"=>"Oops .. ,Creating Account Failed",
+                "status" => false,
+                "data" => "Oops .. ,Creating Account Failed",
             ]);
         }
     }
