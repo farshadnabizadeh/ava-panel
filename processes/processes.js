@@ -50,17 +50,15 @@ const createAccount = () => {
             function (response) {
                 if (response.status) {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href="">Why do I have this issue?</a>'
+                        icon: 'success',
+                        title: 'Ok',
+                        text: response.data,
                     })
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href="">Why do I have this issue?</a>'
                     })
                 }
             });
