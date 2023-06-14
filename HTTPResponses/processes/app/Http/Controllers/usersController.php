@@ -69,15 +69,32 @@ class usersController extends Controller
             ]);
         }
     }
-    public function setPassword(Request $request){
-        if(!$this->specialCharacterCheck($request->password)){
+    public function setPassword(Request $request)
+    {
+        if (!$this->specialCharacterCheck($request->password) || str_contains($request->password, ' ')) {
+            session()->put('password', false);
             return response()->json([
-                "status"=>false,
-                "data"=>"special characters are not allowed",
+                "status" => false,
+                "data" => "special characters and using Space are not allowed",
             ]);
+        } else {
+            if (strlen($request->password) != 8) {
+                session()->put('password', false);
+                return response()->json([
+                    "status" => false,
+                    "data" => "password must be 8 characters long",
+                ]);
+            } else {
+                session()->put('password', true);
+                return response()->json([
+                    "status" => true,
+                    "data" => "Password Set Successfully",
+                ]);
+            }
         }
     }
-    public function resetAllSession(){
+    public function resetAllSession()
+    {
         session()->put('username', false);
         session()->put('email', false);
         session()->put('password', false);
