@@ -55,7 +55,7 @@ class usersController extends Controller
     }
     public function setEmail(Request $request)
     {
-        if ($this->emailValidation($request->email)) {
+        if ($this->emailSpecialCharacterCheck($request->email) && !str_contains($request->email, ' ') && $this->emailValidation($request->email)) {
             session()->put('email', true);
             return response()->json([
                 "status" => true,
@@ -84,6 +84,14 @@ class usersController extends Controller
     public function specialCharacterCheck($data)
     {
         if (preg_match('/[\'^�$%&*()}{@#~?><>,|=_+�-]/', $data)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public function emailSpecialCharacterCheck($data)
+    {
+        if (preg_match('/[\'^�$%&*()}{#~?><>,|=_+�-]/', $data)) {
             return false;
         } else {
             return true;

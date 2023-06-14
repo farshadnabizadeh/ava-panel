@@ -1,3 +1,10 @@
+<!-- add styles here -->
+<style>
+.form-control:focus {
+     box-shadow:none !important;
+}
+</style>
+<!-- add Document Object Model Here -->
 <main id="main-signupComponent">
   <div class="container">
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -59,6 +66,7 @@
   </div>
   <div id="warrning"></div>
 </main>
+<!-- add Scripts Here -->
 <script>
   jQuery(document).ready(function () {
     signinRequest() // calling function from processes.js
@@ -171,6 +179,9 @@
                                 ${response.data}
                         </div>
                     `)
+                $('#username').css({
+                    border:'1px solid green',
+                })
             } else {
               $('#warrning').html(`
                         <div style="
@@ -184,10 +195,18 @@
                                 ${response.data}
                         </div>
                     `)
+                $('#username').css({
+                    border:'1px solid red',
+                })
             }
           })
       } else {
-        setTimeout(() => { $('#warrning').html(``) })
+        setTimeout(() => {
+            $('#warrning').html(``)
+            $('#username').css({
+                border:'',
+            })
+        })
       }
     })
     $('#email').keyup(function () {
