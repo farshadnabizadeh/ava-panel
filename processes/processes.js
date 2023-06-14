@@ -1,6 +1,8 @@
 jQuery(document).ready(function () {
+    resetAllSessions()
     route()
 })
+
 const route = () => {
     var origin = window.location.origin;
     var route = window.location.href;
@@ -17,6 +19,9 @@ const route = () => {
             render(origin, pathname, 'loginComponent.html')
             break;
     }
+}
+const resetAllSessions = () => {
+    $.post(getURL() + 'HTTPResponses/processes/public/api/reset/session', function (response) { })
 }
 const signupRequest = () => {
     $("#signup-request").click(function () {

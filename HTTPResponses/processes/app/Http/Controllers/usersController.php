@@ -15,11 +15,11 @@ class usersController extends Controller
     }
     public function getEmailSession()
     {
-        return session('email') ? true : false;
+        return session('email') && session('username');
     }
     public function getPasswordSession()
     {
-        return session('password') ? true : false;
+        return session('password') && session('email') && session('username');
     }
     public function setUsername(Request $request)
     {
@@ -53,6 +53,66 @@ class usersController extends Controller
             ]);
         }
     }
+    public function setEmail(Request $request)
+    {
+        if ($this->emailSpecialCharacterCheck($request->email) && !str_contains($request->email, ' ') && $this->emailValidation($request->email)) {
+            session()->put('email', true);
+            return response()->json([
+                "status" => true,
+                "data" => 'Email Set Successfully',
+            ]);
+        } else {
+            session()->put('email', false);
+            return response()->json([
+                "status" => false,
+                "data" => 'Email is invalid',
+            ]);
+        }
+    }
+    public function setPassword(Request $request)
+    {
+        if (!$this->specialCharacterCheck($request->password) || str_contains($request->password, ' ')) {
+            session()->put('password', false);
+            return response()->json([
+                "status" => false,
+                "data" => "special characters and using Space are not allowed",
+            ]);
+        } else {
+            if (strlen($request->password) != 8) {
+                session()->put('password', false);
+                return response()->json([
+                    "status" => false,
+                    "data" => "password must be 8 characters long",
+                ]);
+            } else {
+                session()->put('password', true);
+                return response()->json([
+                    "status" => true,
+                    "data" => "Password Set Successfully",
+                ]);
+            }
+        }
+    }
+    public function setconfirmationpassword(Request $request)
+    {
+        if ($request->password == $request->confirmationpassword) {
+            return response()->json([
+                "status" => true,
+                "data" => "password confirmed Successfully",
+            ]);
+        } else {
+            return response()->json([
+                "status" => false,
+                "data" => "Passwords are Not Same",
+            ]);
+        }
+    }
+    public function resetAllSession()
+    {
+        session()->put('username', false);
+        session()->put('email', false);
+        session()->put('password', false);
+    }
     public function emailValidation($email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $email);
@@ -67,7 +127,15 @@ class usersController extends Controller
     }
     public function specialCharacterCheck($data)
     {
-        if (preg_match('/[\'^�$%&*()}{@#~?><>,|=_+�-]/', $data)) {
+        if (preg_match('/[\'^�$%&*()}{@#~?><>,|;=.+�-]/', $data)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public function emailSpecialCharacterCheck($data)
+    {
+        if (preg_match('/[\'^�$%&*()}{#~?><>,|;=+�]/', $data)) {
             return false;
         } else {
             return true;
