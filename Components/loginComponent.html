@@ -64,6 +64,8 @@
             $('#signupRequest-textBox').css('cursor', 'pointer')
             if ($.cookie("rememberMe")) {
                 console.log($.cookie("rememberMe"))
+                console.log($.cookie("email"))
+                console.log($.cookie("password"))
             } else {
                 $('#signinSubmit').click(function () {
                     let rememberMe = $('#rememberMe').is(":checked") ? true : false;
@@ -72,7 +74,11 @@
                         password: $('#password').val(),
                     }, function (response) {
                         if (response.status) {
-                            if (rememberMe) { $.cookie("rememberMe", true); }
+                            if (rememberMe) {
+                                $.cookie("rememberMe", true);
+                                $.cookie("email", $('#email').val());
+                                $.cookie("password", $('#password').val());
+                            }
                         } else {
                             Swal.fire({
                                 icon: 'error',
