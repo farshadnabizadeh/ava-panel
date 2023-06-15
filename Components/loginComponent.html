@@ -17,16 +17,16 @@
                                 </div>
                                 <form class="row g-3 needs-validation" novalidate>
                                     <div class="col-12">
-                                        <label for="yourUsername" class="form-label">Username</label>
+                                        <label class="form-label">Email</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                            <div class="invalid-feedback">Please enter your username.</div>
+                                            <input type="text" name="username" class="form-control" id="email" required>
+                                            <div class="invalid-feedback">Please enter your Email.</div>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <label for="yourPassword" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                        <label class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control" id="password" required>
                                         <div class="invalid-feedback">Please enter your password!</div>
                                     </div>
                                     <div class="col-12">
@@ -58,6 +58,13 @@
             $('#main-loginComponent').css('background-size','cover')
             $('#loginBox').css('opacity','.9')
             $('#signupRequest-textBox').css('cursor','pointer')
+            $.post(getURL() + 'HTTPResponses/processes/public/api/user/rememberme',function(response){
+                if(response==''){
+                    console.log('there is no cookie')
+                }else{
+                    console.log('cookie found')
+                }
+            })
         })
     </script>
 </main>

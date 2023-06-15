@@ -192,4 +192,12 @@ class usersController extends Controller
             ]);
         }
     }
+    public function userLogin(Request $request)
+    {
+    }
+    public function setCookie(Request $request)
+    {
+        $value = $request->cookie('rememberMe');
+        return $value;
+    }
 }
