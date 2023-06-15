@@ -28,3 +28,4 @@ Route::post('/user/setusername',[usersController::class,'setUsername']);
 Route::post('/user/setemail',[usersController::class,'setEmail']);
 Route::post('/user/setpassword',[usersController::class,'setPassword']);
 Route::post('/user/setconfirmationpassword',[usersController::class,'setconfirmationpassword']);
+Route::post('/user/login',[usersController::class,'userLogin']);

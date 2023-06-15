@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Response;
+use Illuminate\Http\Response;
 use App\Models\User;
 use Session;
 
@@ -189,6 +189,21 @@ class usersController extends Controller
             return response()->json([
                 "status" => false,
                 "data" => "Oops .. Creating Account Failed",
+            ]);
+        }
+    }
+    public function userLogin(Request $request)
+    {
+        if (User::where('email', $request->email)->where('password', $request->password)->count() == 1) {
+            session()->put('userinfo', ['email' => $request->email, 'password' => $request->password]);
+            return response()->json([
+                "status"=>true,
+                "data"=>"You Logged Successfully",
+            ]);
+        } else {
+            return response()->json([
+                "status"=>false,
+                "data"=>"Oops... Check Your Email and Password",
             ]);
         }
     }
