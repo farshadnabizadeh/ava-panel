@@ -176,19 +176,19 @@ class usersController extends Controller
                 } else {
                     return response()->json([
                         "status" => false,
-                        "data" => "Oops .. ,Creating Account Failed",
+                        "data" => "Oops .. Creating Account Failed",
                     ]);
                 }
             } else {
                 return response()->json([
                     "status" => false,
-                    "data" => "Oops .. ,'This username is already in use'",
+                    "data" => "Oops .. This username is already in use",
                 ]);
             }
         } else {
             return response()->json([
                 "status" => false,
-                "data" => "Oops .. ,Creating Account Failed",
+                "data" => "Oops .. Creating Account Failed",
             ]);
         }
     }
