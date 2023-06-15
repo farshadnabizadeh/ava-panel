@@ -8,14 +8,15 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div id="loginBox" class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <div id="loginBox"
+                        class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="card mb-3" style="opacity: 0.8;">
                             <div class="card-body" style="padding:40px 40px;">
                                 <div class="pt-4 pb-2">
                                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     <p class="text-center small">Enter your username & password to login</p>
                                 </div>
-                                <form class="row g-3 needs-validation" novalidate>
+                                <div class="row g-3 needs-validation" novalidate>
                                     <div class="col-12">
                                         <label class="form-label">Email</label>
                                         <div class="input-group has-validation">
@@ -26,22 +27,25 @@
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" id="password" required>
+                                        <input type="password" name="password" class="form-control" id="password"
+                                            required>
                                         <div class="invalid-feedback">Please enter your password!</div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                            <input class="form-check-input" type="checkbox" name="remember" value="true"
+                                                id="rememberMe">
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                                        <button id="signinSubmit" class="btn btn-primary w-100">Login</button>
                                     </div>
                                     <div id="signup-request" class="col-12">
-                                        <p id="signupRequest-textBox" class="small mb-0">Don't have account? <a>Create an account</a></p>
+                                        <p id="signupRequest-textBox" class="small mb-0">Don't have account? <a>Create
+                                                an account</a></p>
                                     </div>
-                                </form>
+                                </div>
 
                             </div>
                         </div>
@@ -50,21 +54,35 @@
             </div>
         </section>
     </div>
-<!-- add Scripts Here -->
+    <!-- add Scripts Here -->
     <script>
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             signupRequest(); // Calling function in processes.js
-            $('#main-loginComponent').css('background-image', 'url(' + getURL()+ 'assets/img/loginPageBackground.jpg' + ')')
-            $('#main-loginComponent').css('background-size','cover')
-            $('#loginBox').css('opacity','.9')
-            $('#signupRequest-textBox').css('cursor','pointer')
-            $.post(getURL() + 'HTTPResponses/processes/public/api/user/rememberme',function(response){
-                if(response==''){
-                    console.log('there is no cookie')
-                }else{
-                    console.log('cookie found')
-                }
-            })
+            $('#main-loginComponent').css('background-image', 'url(' + getURL() + 'assets/img/loginPageBackground.jpg' + ')')
+            $('#main-loginComponent').css('background-size', 'cover')
+            $('#loginBox').css('opacity', '.9')
+            $('#signupRequest-textBox').css('cursor', 'pointer')
+            if ($.cookie("rememberMe")) {
+                console.log($.cookie("rememberMe"))
+            } else {
+                $('#signinSubmit').click(function () {
+                    let rememberMe = $('#rememberMe').is(":checked") ? true : false;
+                    $.post(getURL() + 'HTTPResponses/processes/public/api/user/login', {
+                        email: $('#email').val(),
+                        password: $('#password').val(),
+                    }, function (response) {
+                        if (response.status) {
+                            if (rememberMe) { $.cookie("rememberMe", true); }
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: response.data,
+                            })
+                        }
+                    })
+                })
+            }
         })
     </script>
 </main>

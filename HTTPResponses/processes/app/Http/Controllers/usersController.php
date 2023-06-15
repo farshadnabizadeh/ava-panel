@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Response;
+use Illuminate\Http\Response;
 use App\Models\User;
 use Session;
 
@@ -194,10 +194,17 @@ class usersController extends Controller
     }
     public function userLogin(Request $request)
     {
-    }
-    public function setCookie(Request $request)
-    {
-        $value = $request->cookie('rememberMe');
-        return $value;
+        if (User::where('email', $request->email)->where('password', $request->password)->count() == 1) {
+            session()->put('userinfo', ['email' => $request->email, 'password' => $request->password]);
+            return response()->json([
+                "status"=>true,
+                "data"=>"You Logged Successfully",
+            ]);
+        } else {
+            return response()->json([
+                "status"=>false,
+                "data"=>"Oops... Check Your Email and Password",
+            ]);
+        }
     }
 }
