@@ -153,10 +153,10 @@ class usersController extends Controller
     {
         if ($request->acceptTerms == 'enabled' && session('username') && session('password') && session('email')) {
             $createAccount = User::create([
-                'username' => session('username'),
-                'email' => session('email'),
+                'username' => $request->username,
+                'email' => $request->email,
                 'email_verified' => false,
-                'password' => session('password'),
+                'password' => $request->password,
                 'remember_token' => md5('password'),
             ]);
             if ($createAccount) {
