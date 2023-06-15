@@ -49,18 +49,26 @@ class usersController extends Controller
             session()->put('username', false);
             return response()->json([
                 "status" => false,
-                "data" => 'this username is already in use',
+                "data" => 'This username is already in use',
             ]);
         }
     }
     public function setEmail(Request $request)
     {
         if ($this->emailSpecialCharacterCheck($request->email) && !str_contains($request->email, ' ') && $this->emailValidation($request->email)) {
-            session()->put('email', true);
-            return response()->json([
-                "status" => true,
-                "data" => 'Email Set Successfully',
-            ]);
+            if (User::where('email', $request->email)->count() == 0) {
+                session()->put('email', true);
+                return response()->json([
+                    "status" => true,
+                    "data" => 'Email Set Successfully',
+                ]);
+            } else {
+                session()->put('email', false);
+                return response()->json([
+                    "status" => false,
+                    "data" => 'This Email already exists',
+                ]);
+            }
         } else {
             session()->put('email', false);
             return response()->json([
@@ -152,22 +160,29 @@ class usersController extends Controller
     public function createAccount(Request $request)
     {
         if ($request->acceptTerms == 'enabled' && session('username') && session('password') && session('email')) {
-            $createAccount = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'email_verified' => false,
-                'password' => $request->password,
-                'remember_token' => md5('password'),
-            ]);
-            if ($createAccount) {
-                return response()->json([
-                    "status" => true,
-                    "data" => "Your Account Created Successfully",
+            if (User::where('username', $request->username)->count() == 0 && User::where('email', $request->email)->count() == 0) {
+                $createAccount = User::create([
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'email_verified' => false,
+                    'password' => $request->password,
+                    'remember_token' => md5('password'),
                 ]);
+                if ($createAccount) {
+                    return response()->json([
+                        "status" => true,
+                        "data" => "Your Account Created Successfully",
+                    ]);
+                } else {
+                    return response()->json([
+                        "status" => false,
+                        "data" => "Oops .. ,Creating Account Failed",
+                    ]);
+                }
             } else {
                 return response()->json([
                     "status" => false,
-                    "data" => "Oops .. ,Creating Account Failed",
+                    "data" => "Oops .. ,'This username is already in use'",
                 ]);
             }
         } else {
