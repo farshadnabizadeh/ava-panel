@@ -45,6 +45,9 @@ const createAccount = () => {
     $('#createAccount').click(function () {
         $.post(getURL() + 'HTTPResponses/processes/public/api/user/createaccount',
             {
+                username:$('#username').val(),
+                password:$('#password').val(),
+                email:$('#email').val(),
                 acceptTerms: $('#acceptTerms').is(":checked") ? 'enabled' : 'disabled',
             },
             function (response) {
