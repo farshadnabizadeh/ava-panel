@@ -195,7 +195,7 @@
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     <li class="nav-item">
-      <a class="nav-link collapsed" href="index.html">
+      <a class="nav-link collapsed" id="dashboard-btn">
         <i class="bi bi-columns-gap"></i>
         <span>Dashboard</span>
       </a>
@@ -281,7 +281,13 @@
 <script src="assets/js/main.js"></script>
 <script>
   const panelProcesses = () => {
-    console.log('Progress running')
+    $('#dashboard-btn').css({
+      'color': '#4154f1',
+      'background': '#f6f9ff',
+    })
+    $('#dashboard-btn>i').css({
+      'color': '#4154f1',
+    })
   }
   jQuery(document).ready(function () {
     if ($.cookie("email") == undefined && $.cookie("email") == undefined) {
