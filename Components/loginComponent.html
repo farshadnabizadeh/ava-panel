@@ -63,9 +63,7 @@
             $('#loginBox').css('opacity', '.9')
             $('#signupRequest-textBox').css('cursor', 'pointer')
             if ($.cookie("rememberMe")) {
-                console.log($.cookie("rememberMe"))
-                console.log($.cookie("email"))
-                console.log($.cookie("password"))
+                window.location.href = '?route=panel'
             } else {
                 $('#signinSubmit').click(function () {
                     let rememberMe = $('#rememberMe').is(":checked") ? true : false;
@@ -74,11 +72,10 @@
                         password: $('#password').val(),
                     }, function (response) {
                         if (response.status) {
-                            if (rememberMe) {
-                                $.cookie("rememberMe", true);
-                                $.cookie("email", $('#email').val());
-                                $.cookie("password", $('#password').val());
-                            }
+                            $.cookie("rememberMe", true);
+                            $.cookie("email", $('#email').val());
+                            $.cookie("password", $('#password').val());
+                            window.location.href = '?route=panel'
                         } else {
                             Swal.fire({
                                 icon: 'error',

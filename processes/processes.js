@@ -15,6 +15,9 @@ const route = () => {
         case 'signup':
             render(origin, pathname, 'registerComponent.html')
             break
+        case 'panel':
+            render(origin, pathname, 'panelComponent.html')
+            break
         default:
             render(origin, pathname, 'loginComponent.html')
             break;
