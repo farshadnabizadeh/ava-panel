@@ -18,6 +18,9 @@ const route = () => {
         case 'panel':
             render(origin, pathname, 'panelComponent.html')
             break
+        case 'buyvpn':
+            render(origin, pathname, 'panelComponent.html')
+            break
         default:
             render(origin, pathname, 'loginComponent.html')
             break;

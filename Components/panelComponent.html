@@ -1,4 +1,9 @@
 <!-- add Style Here -->
+<style>
+  a {
+    cursor: pointer !important;
+  }
+</style>
 <!-- add Document Object Model Here -->
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
@@ -225,7 +230,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
+      <a class="nav-link collapsed" id="buy-vpn">
         <i class="bi bi-shield"></i>
         <span>Buy VPN</span>
       </a>
@@ -285,21 +290,33 @@
 </main>
 
 <script src="assets/js/main.js"></script>
+
 <script>
-  const panelProcesses = () => {
-    $('#dashboard-btn').css({
-      'color': '#4154f1',
-      'background': '#f6f9ff',
+  const buttons = () => {
+    // Menu Buttons
+    $('#dashboard-btn').click(function () {
+      window.location.href = '?route=panel'
     })
-    $('#dashboard-btn>i').css({
-      'color': '#4154f1',
+    $('#buy-vpn').click(function () {
+      window.location.href = '?route=buyvpn'
     })
   }
   jQuery(document).ready(function () {
     if ($.cookie("email") == undefined && $.cookie("email") == undefined) {
       window.location.href = '?route=signin'
     } else {
-      panelProcesses()
+      buttons()
+      switch ((window.location.href.split('?route='))[1]) {
+        case 'panel':
+          dashboardProcess()
+          break
+        case 'buyvpn':
+          buyVPNProcess()
+          break
+        default:
+          dashboardProcess()
+          break
+      }
     }
   })
 
