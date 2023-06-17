@@ -1,4 +1,9 @@
 <!-- add Style Here -->
+<style>
+  a {
+    cursor: pointer !important;
+  }
+</style>
 <!-- add Document Object Model Here -->
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
@@ -225,7 +230,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
+      <a class="nav-link collapsed" id="buy-vpn">
         <i class="bi bi-shield"></i>
         <span>Buy VPN</span>
       </a>
@@ -251,55 +256,37 @@
   </ul>
 </aside>
 <main id="main" class="main">
-  <div class="pagetitle">
-    <h1>Blank Page</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">Pages</li>
-        <li class="breadcrumb-item active">Blank</li>
-      </ol>
-    </nav>
-  </div>
-  <section class="section">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Example Card</h5>
-            <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Example Card</h5>
-            <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <div id="mainSection_panelComponent"></div>
 </main>
 
 <script src="assets/js/main.js"></script>
+
 <script>
-  const panelProcesses = () => {
-    $('#dashboard-btn').css({
-      'color': '#4154f1',
-      'background': '#f6f9ff',
+  const buttons = () => {
+    // Menu Buttons
+    $('#dashboard-btn').click(function () {
+      window.location.href = '?route=panel'
     })
-    $('#dashboard-btn>i').css({
-      'color': '#4154f1',
+    $('#buy-vpn').click(function () {
+      window.location.href = '?route=buyvpn'
     })
   }
   jQuery(document).ready(function () {
     if ($.cookie("email") == undefined && $.cookie("email") == undefined) {
       window.location.href = '?route=signin'
     } else {
-      panelProcesses()
+      buttons()
+      switch ((window.location.href.split('?route='))[1]) {
+        case 'panel':
+          dashboardProcess()
+          break
+        case 'buyvpn':
+          buyVPNProcess()
+          break
+        default:
+          dashboardProcess()
+          break
+      }
     }
   })
 
