@@ -7,6 +7,7 @@ const dashboardProcess = () => {
     $('#dashboard-btn>i').css({
         'color': '#4154f1',
     })
+    renderMainSection('dashboard.html')
 }
 
 const buyVPNProcess = () => {
@@ -18,4 +19,9 @@ const buyVPNProcess = () => {
     $('#buy-vpn>i').css({
         'color': '#4154f1',
     })
+    renderMainSection('buyvpn.html')
+}
+
+const renderMainSection = (DOM) => {
+    $('#mainSection_panelComponent').load(getURL() + 'Components/Sections/' + DOM);
 }
