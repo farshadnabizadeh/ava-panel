@@ -72,7 +72,7 @@
                         password: $('#password').val(),
                     }, function (response) {
                         if (response.status) {
-                            $.cookie("rememberMe", true);
+                            if(rememberMe){$.cookie("rememberMe", true);}
                             $.cookie("email", $('#email').val());
                             $.cookie("password", $('#password').val());
                             window.location.href = '?route=panel'
