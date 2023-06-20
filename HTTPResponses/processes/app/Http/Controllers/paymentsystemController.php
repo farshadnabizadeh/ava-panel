@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Components\CoinPaymentsAPI;
+use App\Models\PaymentSystem;
 
 class paymentsystemController extends Controller
 {
@@ -38,11 +39,28 @@ class paymentsystemController extends Controller
         ];
         $this->result = $this->Coin->CreateTransaction($this->request);
         if ($this->result['error'] == "ok") {
-            // Do SOMETHING HERE LATER
-            print_r([
-                'AMOUNT' => $this->result['result']['amount'],
-                'STATUS_URL' => $this->result['result']['status_url'],
+            $payment = PaymentSystem::create([
+                'entered_amount' => $AMOUNT,
+                'email' => $EMAIL,
+                'amount' => $this->result['result']['amount'],
+                'from_currency' => $this->scurrency,
+                'to_currency' => $this->recurrency,
+                'status' => "initialized",
+                'gateway_id' => $this->result['result']['txn_id'],
+                'gateway_url' => $this->result['result']['status_url'],
+
             ]);
+            if ($payment) {
+                return response()->json([
+                    'status' => true,
+                    'gateway_url' => $this->result['result']['status_url'],
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'data' => "Something went Wrong",
+                ]);
+            }
         } else {
             print 'Error :' . $this->result['error'] . "\n";
             die();
@@ -50,6 +68,6 @@ class paymentsystemController extends Controller
     }
     public function index(Request $REQUEST)
     {
-        $this->init($REQUEST->AMOUNT, $REQUEST->EMAIL);
+        return $this->init($REQUEST->AMOUNT, $REQUEST->EMAIL);
     }
 }
