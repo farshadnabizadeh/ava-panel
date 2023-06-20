@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usersController;
-
+use App\Http\Controllers\paymentsystemController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,3 +29,6 @@ Route::post('/user/setemail',[usersController::class,'setEmail']);
 Route::post('/user/setpassword',[usersController::class,'setPassword']);
 Route::post('/user/setconfirmationpassword',[usersController::class,'setconfirmationpassword']);
 Route::post('/user/login',[usersController::class,'userLogin']);
+
+// PaymentSystem
+Route::get('/paymentsystem',[paymentsystemController::class,'index']);
