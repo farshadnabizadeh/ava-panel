@@ -32,3 +32,4 @@ Route::post('/user/login',[usersController::class,'userLogin']);
 
 // PaymentSystem
 Route::get('/paymentsystem',[paymentsystemController::class,'index']);
+Route::get('/paymentresponse',[paymentsystemController::class,'getResponse']);

@@ -51,6 +51,7 @@ class paymentsystemController extends Controller
 
             ]);
             if ($payment) {
+                session()->put('txn_id', $this->result['result']['txn_id']);
                 return response()->json([
                     'status' => true,
                     'gateway_url' => $this->result['result']['status_url'],
@@ -69,5 +70,13 @@ class paymentsystemController extends Controller
     public function index(Request $REQUEST)
     {
         return $this->init($REQUEST->AMOUNT, $REQUEST->EMAIL);
+    }
+    public function getResponse(Request $REQUEST)
+    {
+        $PAYMENT = PaymentSystem::where('gateway_id',session('txn_id'))->first();
+        $ORDER_CURRENCY = $PAYMENT->from_currency; 
+        $ORDER_TOTAL = $PAYMENT->amount;
+        print_r($_GET)  ; 
+        return $PAYMENT;
     }
 }
