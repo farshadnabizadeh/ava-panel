@@ -73,10 +73,35 @@ class paymentsystemController extends Controller
     }
     public function getResponse(Request $REQUEST)
     {
-        $PAYMENT = PaymentSystem::where('gateway_id',session('txn_id'))->first();
-        $ORDER_CURRENCY = $PAYMENT->from_currency; 
+        $ERRORS = array();
+        $PAYMENT = PaymentSystem::where('gateway_id', session('txn_id'))->first();
+        $ORDER_CURRENCY = $PAYMENT->from_currency;
         $ORDER_TOTAL = $PAYMENT->amount;
-        print_r($_GET)  ; 
+        if (!$REQUEST->has('ipn_mode') || $REQUEST->input('ipn_mode') == 'hmac') {
+            array_push($ERRORS, 'IPN MODE IS NOT HMAC');
+        }
+        if (!isset($_SERVER['HTTP_HMAC']) || empty($_SERVER['HTTP_HMAC'])) {
+            array_push($ERRORS, 'No HMAC SIGNATURE SENT');
+        }
+
+        $req = file_get_contents('php://input');
+        if ($req === false || empty($req)) {
+            array_push($ERRORS, 'ERROR IN READING POST DATA');
+        }
+
+        if (!$REQUEST->has('merchant') || $REQUEST->input('merchant') != trim(env('MERCHANT_ID'))) {
+            array_push($ERRORS, 'No OR INCORRECT MERCHANT');
+        }
+        $HMAC = hash_hmac("sha512", $req, trim(env('IPN_SECRET')));
+        if (!hash_equals($HMAC, $_SERVER['HTTP_HMAC'])) {
+            array_push($ERRORS, 'HMAC SIGNATURE DOES NOT MATCH');
+        }
+        $amount1 = floatval($REQUEST->input('amount1'));
+        $amount2 = floatval($REQUEST->input('amount2'));
+        $currency1 = $REQUEST->input('currency1');
+        $currency2 = $REQUEST->input('currency2');
+        $status = intval($REQUEST->input('status'));
+        print_r($_GET);
         return $PAYMENT;
     }
 }
